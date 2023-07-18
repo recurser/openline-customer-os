@@ -503,7 +503,7 @@ ${__setProperty(organizationName,${organizationName})}</stringProp>
           <hashTree/>
         </hashTree>
         <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <stringProp name="LoopController.loops">1</stringProp>
+          <stringProp name="LoopController.loops">20</stringProp>
         </LoopController>
         <hashTree>
           <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="volume data" enabled="true">
@@ -1483,30 +1483,6 @@ ${__setProperty(organizationName,${organizationName})}</stringProp>
           </HeaderManager>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="dashboardView_Organizations" enabled="true">
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">{&quot;query&quot;:&quot;query dashboardView_Organizations {\n  dashboardView_Organizations(pagination: {page: 1, limit: 20}){\n    content{\n      id \n      name \n      subsidiaryOf {\n        organization {\n          id\n          name\n          __typename\n        }\n        __typename\n      } \n      owner {\n        id\n        firstName\n        lastName\n        __typename\n      } \n      description \n      industry \n      website \n      domains \n      locations {\n        id\n        name\n        country\n        region\n        locality\n        zip\n        street\n        postalCode\n        houseNumber\n        rawAddress\n        __typename \n      } \n      healthIndicator {\n        id\n        name\n        order\n        __typename\n      }\n      relationshipStages {\n        relationship\n        stage\n        __typename\n      }\n      lastTouchPointTimelineEventId \n      lastTouchPointAt \n      lastTouchPointTimelineEvent {\n       ... on \n         PageView {\n          id     \n            __typename \n      } ... on \n         Issue {\n          id     \n            __typename \n      } ... on Note {\n          id     \n            createdBy {\n             firstName       \n               lastName       \n               __typename \n         } __typename \n      } ... on InteractionEvent {\n          id     \n            channel     \n            eventType     \n            sentBy {\n             __typename       \n               ... on EmailParticipant {\n                type         \n                  emailParticipant {\n                   id           \n                     email           \n                     rawEmail           \n                     __typename \n               } __typename \n            }\n         } __typename \n      } ... on Analysis {\n          id     \n            __typename \n      } ... on Meeting {\n          id     \n            name     \n            attendedBy {\n             __typename \n         } __typename \n      } ... on Action {\n          id     \n                  actionType     \n                  createdAt     \n                  source     \n                  createdBy {\n             id       \n                     firstName       \n                     lastName       \n                     __typename \n         } __typename \n      } __typename \n   } __typename \n} totalElements\n                     __typename \n}\n}&quot;,&quot;operationName&quot;:&quot;dashboardView_Organizations&quot;}</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="HTTPSampler.method">POST</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
-          <boolProp name="HTTPSampler.image_parser">false</boolProp>
-          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
-          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
-          <boolProp name="HTTPSampler.md5">false</boolProp>
-          <intProp name="HTTPSampler.ipSourceType">0</intProp>
-        </HTTPSamplerProxy>
-        <hashTree/>
         <ResultCollector guiclass="SimpleDataWriter" testclass="ResultCollector" testname="Simple Data Writer" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
