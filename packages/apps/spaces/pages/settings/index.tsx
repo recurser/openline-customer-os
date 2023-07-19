@@ -9,6 +9,7 @@ import { Skeleton } from '@spaces/atoms/skeleton';
 import { SettingsIntegrationItem } from '@spaces/molecules/settings-integration-item';
 import Head from 'next/head';
 import { PageContentLayout } from '@spaces/layouts/page-content-layout';
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 
 const Settings: NextPage = () => {
   const [reload, setReload] = useState<boolean>(false);
@@ -2321,81 +2322,112 @@ const Settings: NextPage = () => {
       </Head>
       <PageContentLayout>
         <div className={styles.pageContainer}>
-          <DebouncedInput
-            className={'wfull'}
-            minLength={2}
-            onChange={(event) => handleFilterResults(event.target.value)}
-            placeholder={'Search ...'}
-            value={searchTerm}
-          >
-            <Search />
-          </DebouncedInput>
+          <Tabs>
+            <TabList>
+              <Tab>Personal Integrations</Tab>
+              <Tab>Workspace Integrations</Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <div className={styles.settingsContainer}>
+                  <p className={styles.settingsHeading}>Calendars</p>
+                  <SettingsIntegrationItem
+                    icon={'logos/calcom.svg'}
+                    identifier={'calcom'}
+                    name={'Cal.com'}
+                    state='INACTIVE'
+                    settingsChanged={() => {
+                      reloadRef.current = !reloadRef.current;
+                      setReload(reloadRef.current);
+                    }}
+                    fields={[
+                      {
+                        name: 'secret',
+                        label: 'Secret',
+                      },
+                    ]}
+                  />
+                </div>
+              </TabPanel>
+              <TabPanel>
+                <DebouncedInput
+                  className={'wfull'}
+                  minLength={2}
+                  onChange={(event) => handleFilterResults(event.target.value)}
+                  placeholder={'Search ...'}
+                  value={searchTerm}
+                >
+                  <Search />
+                </DebouncedInput>
 
-          <div className={styles.settingsContainer}>
-            <h2 style={{ marginTop: '20px' }}>Active integrations</h2>
-            {loading && (
-              <>
-                <div style={{ marginTop: '20px' }}>
-                  <div>
-                    <Skeleton height='30px' width='100%' />
-                  </div>
-                  <div>
-                    <Skeleton height='20px' width='90%' />
-                  </div>
-                </div>
-                <div style={{ marginTop: '20px' }}>
-                  <div>
-                    <Skeleton height='30px' width='100%' />
-                  </div>
-                  <div>
-                    <Skeleton height='20px' width='90%' />
-                  </div>
-                </div>
-              </>
-            )}
-            {!loading && (
-              <>
-                {integrationsDisplayed
-                  .filter((integration: any) => integration.state === 'ACTIVE')
-                  .map((integration: any) => {
-                    return integration.template(integration);
-                  })}
-              </>
-            )}
+                <div className={styles.settingsContainer}>
+                  <h2 style={{ marginTop: '20px' }}>Active integrations</h2>
+                  {loading && (
+                    <>
+                      <div style={{ marginTop: '20px' }}>
+                        <div>
+                          <Skeleton height='30px' width='100%' />
+                        </div>
+                        <div>
+                          <Skeleton height='20px' width='90%' />
+                        </div>
+                      </div>
+                      <div style={{ marginTop: '20px' }}>
+                        <div>
+                          <Skeleton height='30px' width='100%' />
+                        </div>
+                        <div>
+                          <Skeleton height='20px' width='90%' />
+                        </div>
+                      </div>
+                    </>
+                  )}
+                  {!loading && (
+                    <>
+                      {integrationsDisplayed
+                        .filter((integration: any) => integration.state === 'ACTIVE')
+                        .map((integration: any) => {
+                          return integration.template(integration);
+                        })}
+                    </>
+                  )}
 
-            <h2 style={{ marginTop: '20px' }}>Inactive integrations</h2>
-            {loading && (
-              <>
-                <div style={{ marginTop: '20px' }}>
-                  <div>
-                    <Skeleton height='30px' width='100%' />
-                  </div>
-                  <div>
-                    <Skeleton height='20px' width='90%' />
-                  </div>
+                  <h2 style={{ marginTop: '20px' }}>Inactive integrations</h2>
+                  {loading && (
+                    <>
+                      <div style={{ marginTop: '20px' }}>
+                        <div>
+                          <Skeleton height='30px' width='100%' />
+                        </div>
+                        <div>
+                          <Skeleton height='20px' width='90%' />
+                        </div>
+                      </div>
+                      <div style={{ marginTop: '20px' }}>
+                        <div>
+                          <Skeleton height='30px' width='100%' />
+                        </div>
+                        <div>
+                          <Skeleton height='20px' width='90%' />
+                        </div>
+                      </div>
+                    </>
+                  )}
+                  {!loading && (
+                    <>
+                      {integrationsDisplayed
+                        .filter(
+                          (integration: any) => integration.state === 'INACTIVE',
+                        )
+                        .map((integration: any) => {
+                          return integration.template(integration);
+                        })}
+                    </>
+                  )}
                 </div>
-                <div style={{ marginTop: '20px' }}>
-                  <div>
-                    <Skeleton height='30px' width='100%' />
-                  </div>
-                  <div>
-                    <Skeleton height='20px' width='90%' />
-                  </div>
-                </div>
-              </>
-            )}
-            {!loading && (
-              <>
-                {integrationsDisplayed
-                  .filter(
-                    (integration: any) => integration.state === 'INACTIVE',
-                  )
-                  .map((integration: any) => {
-                    return integration.template(integration);
-                  })}
-              </>
-            )}
-          </div>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
         </div>
       </PageContentLayout>
     </>
