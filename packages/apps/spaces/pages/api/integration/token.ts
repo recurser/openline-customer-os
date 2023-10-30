@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import jwt from 'jsonwebtoken';
+import * as console from "console";
 
 const WORKSPACE_KEY = process.env.INTEGRATION_APP_WORKSPACE_KEY;
 const WORKSPACE_SECRET = process.env.INTEGRATION_APP_WORKSPACE_SECRET;
@@ -31,6 +32,7 @@ export default async function handler(
       .json({ message: 'Missing integration app credentials' });
   }
 
+  console.log('do i need to sign this?', tokenData);
   const token = jwt.sign(tokenData, WORKSPACE_SECRET, {
     issuer: WORKSPACE_KEY,
     expiresIn: 7200,
